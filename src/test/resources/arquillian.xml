@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns="http://jboss.com/arquillian"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:glassfish-remote="urn:arq:org.jboss.arquillian.container.glassfish.remote_3">
+
+    <engine>
+        <deploymentExportPath>target/</deploymentExportPath>
+    </engine>
+
+    <!-- Uncomment this if glassfish is listening on a different port
+    <glassfish-remote:container>
+       <glassfish-remote:remoteServerHttpPort>7070</glassfish-remote:remoteServerHttpPort>
+    </glassfish-remote:container>
+    -->
+
+</arquillian>
