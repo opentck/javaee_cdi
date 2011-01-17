@@ -16,9 +16,15 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Validates that a bean can be registered by an extension that resides in a non-bean archive.
- *
- * @author <a href="http://community.jboss.org/people/LightGuard">Jason Porter</a>
+ * Validates that a bean in one non-bean archive can be registered by an
+ * extension that resides in another non-bean archive.
+ * 
+ * <p>
+ * This test fails on the reference implementation (GlassFish). It will pass if
+ * you add META-INF/beans.xml to a.jar and remove the
+ * ManualBeanRegistrationExtension service provider from b.jar
+ * </p>
+ * 
  * @author <a href="http://community.jboss.org/people/dan.j.allen">Dan Allen</a>
  */
 @RunWith(Arquillian.class)
@@ -27,11 +33,12 @@ public class MultipleExtensionInNonBeanArchiveTest
     @Deployment
     public static Archive<?> createTestArchive()
     {
-        // Our non-bean archive with an extension
-        JavaArchive jar1 = ShrinkWrap.create(JavaArchive.class, "test1.jar")
+        // Our non-bean archive
+        JavaArchive jar1 = ShrinkWrap.create(JavaArchive.class, "a.jar")
               .addClasses(BeanClassToRegister.class);
         
-        JavaArchive jar2 = ShrinkWrap.create(JavaArchive.class, "test2.jar")
+        // Our non-bean archive with an extension that programmatically registers two beans
+        JavaArchive jar2 = ShrinkWrap.create(JavaArchive.class, "b.jar")
               .addClasses(AnotherBeanClassToRegister.class, ManualBeanRegistrationExtension.class, AnotherManualBeanRegistrationExtension.class)
               .addServiceProvider(Extension.class, ManualBeanRegistrationExtension.class, AnotherManualBeanRegistrationExtension.class);
 

@@ -28,14 +28,14 @@ public class ExtensionInNonBeanArchiveTest
     public static Archive<?> createTestArchive()
     {
         // Our non-bean archive with an extension
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "test.jar")
+        JavaArchive jar1 = ShrinkWrap.create(JavaArchive.class, "a.jar")
                                     .addClasses(BeanClassToRegister.class, ManualBeanRegistrationExtension.class)
                                     .addServiceProvider(Extension.class, ManualBeanRegistrationExtension.class);
 
         // Web archive is necessary so that Arquillian can find the BeanManager
         return ShrinkWrap.create(WebArchive.class, "test.war")
                          .addWebResource(EmptyAsset.INSTANCE, "beans.xml")
-                         .addLibrary(jar);
+                         .addLibrary(jar1);
     }
 
     @Test

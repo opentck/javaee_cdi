@@ -49,6 +49,10 @@
     </repositories>
 
     <profiles>
+        <!--
+          Execute tests against a standalone GlassFish instance using the following command:
+          mvn test -Dglassfish-remote-3
+        -->
         <profile>
             <id>glassfish-remote-3</id>
             <activation>
@@ -78,6 +82,10 @@
                 </dependency>
             </dependencies>
         </profile>
+        <!--
+          Execute tests against a standalone JBoss instance using the following command:
+          mvn test -Djbossas-remote-6
+        -->
         <profile>
             <id>jbossas-remote-6</id>
             <activation>
